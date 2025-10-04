@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun WorkoutScreen(modifier: Modifier = Modifier){
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
-        Text("Workouts!")
+        Text("Workout!")
     }
 }
 

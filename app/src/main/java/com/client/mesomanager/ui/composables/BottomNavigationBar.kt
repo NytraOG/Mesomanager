@@ -2,11 +2,6 @@ package com.client.mesomanager.ui.composables
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -40,30 +35,25 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
 
     Scaffold(
-        modifier = modifier,
-        bottomBar = {
+        modifier = modifier, bottomBar = {
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
                 Destination.entries.forEachIndexed { index, destination ->
                     NavigationBarItem(
                         selectedDestination == index,
                         onClick = {
-                            navController.navigate(route = destination.route)
-                            selectedDestination = index
-                        },
-                        icon = {
-                            val icon = ImageVector.vectorResource(destination.iconId)
-                            Icon(icon, contentDescription = destination.description)
-                        },
-                        label = {
-                            destination.label
-                        }
-                    )
+                        navController.navigate(route = destination.route)
+                        selectedDestination = index
+                    }, icon = {
+                        val iconVector = ImageVector.vectorResource(destination.iconId)
+                        Icon(iconVector, contentDescription = destination.description)
+                    }, label = {
+                        destination.label
+                    })
                 }
             }
         }) { contentPadding ->
         AppNavHost(navController, startDestination, modifier = Modifier.padding(contentPadding))
     }
-
 }
 
 enum class Destination(
