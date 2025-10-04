@@ -6,8 +6,8 @@ import java.util.UUID
 
 @Entity
 data class Set(
-    @PrimaryKey val id: UUID,
+    @PrimaryKey val id: Int,
     val exercise: Exercise,
-    val targetRepetitions: Int,
+    val repetitionsTarget: Int,
     val repetitionsDone: Int
 )

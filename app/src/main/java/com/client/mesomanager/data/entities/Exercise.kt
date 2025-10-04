@@ -1,8 +1,10 @@
 package com.client.mesomanager.data.entities
 
-import java.util.UUID
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity
 data class Exercise(
-    val id: UUID,
+    @PrimaryKey val id: Int,
     val name: String
 )
