@@ -1,5 +1,6 @@
 package com.client.mesomanager.ui.composables
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -19,11 +20,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.client.mesomanager.R
 import com.client.mesomanager.ui.screens.ExercisesScreen
 import com.client.mesomanager.ui.screens.MesocyclesScreen
 import com.client.mesomanager.ui.screens.MoreScreen
@@ -48,7 +51,8 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
                             selectedDestination = index
                         },
                         icon = {
-                            Icon(destination.icon, contentDescription = destination.description)
+                            val icon = ImageVector.vectorResource(destination.iconId)
+                            Icon(icon, contentDescription = destination.description)
                         },
                         label = {
                             destination.label
@@ -65,13 +69,13 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
 enum class Destination(
     val route: String,
     val label: String,
-    val icon: ImageVector,
+    @DrawableRes val iconId: Int,
     val description: String
 ) {
-    WORKOUT("workout", "Workout", Icons.Default.PlayArrow, "View current Workout"),
-    MESOCYCLES("mesocycles", "Mesocycles", Icons.Default.DateRange, "Create and view Mesocycles"),
-    EXERCISES("exercises", "Exercises", Icons.Default.Edit, "Create and view Exercises"),
-    MORE("more", "More", Icons.Default.Menu, "More Options"),
+    WORKOUT("workout", "Workout", R.drawable.navigation_workout, "View current Workout"),
+    MESOCYCLES("mesocycles", "Mesocycles", R.drawable.navigation_mesocycle, "Create and view Mesocycles"),
+    EXERCISES("exercises", "Exercises", R.drawable.navigation_exercises, "Create and view Exercises"),
+    MORE("more", "More", R.drawable.navigation_more, "More Options"),
 }
 
 @Composable
