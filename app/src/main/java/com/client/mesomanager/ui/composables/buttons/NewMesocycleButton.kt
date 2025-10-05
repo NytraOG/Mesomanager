@@ -1,10 +1,9 @@
 package com.client.mesomanager.ui.composables.buttons
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +22,7 @@ fun NewMesocycleButton(modifier: Modifier = Modifier,
         contentColor = Color(0xfffccece),
         modifier = modifier
         ) {
-        Icon(Icons.Filled.Add, "Large floating action button")
+        //Icon(Icon.Def, "Large floating action button")
     }
 }
 
