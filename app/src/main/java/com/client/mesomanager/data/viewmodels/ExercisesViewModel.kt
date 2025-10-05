@@ -1,29 +1,34 @@
 package com.client.mesomanager.data.viewmodels
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.client.mesomanager.data.Database
+import com.client.mesomanager.data.daos.ExerciseDao
 import com.client.mesomanager.data.entities.Exercise
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExercisesViewModel(
-    application: Application
-) : AndroidViewModel(application) {
-    val db = Database.getInstance(application.applicationContext)
+@HiltViewModel
+class ExercisesViewModel @Inject constructor(
+    private val exerciseDao: ExerciseDao
+) : ViewModel() {
+    private val _exercise = MutableStateFlow<Exercise?>(null)
+    val exercise = _exercise.asStateFlow()
 
-    fun LoadExercises(){
+    fun createExercises() {
         viewModelScope.launch(Dispatchers.IO) {
-            val exercise = Exercise(0, "Curls")
-            val dao = db.exerciseDao()
+            val objToInsert = Exercise(0, "Curls")
+            exerciseDao.insert(objToInsert)
+        }
+    }
 
-            dao.insert(exercise)
-
-            val reload = dao.get(exercise.id)
-
+    fun loadExercise(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = exerciseDao.get(id)
+            _exercise.value = result
         }
     }
 }
