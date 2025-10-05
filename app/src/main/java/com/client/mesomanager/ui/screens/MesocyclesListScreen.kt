@@ -2,22 +2,46 @@ package com.client.mesomanager.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.client.mesomanager.data.viewmodels.MesocycleViewModel
+import com.client.mesomanager.ui.composables.buttons.NewMesocycleButton
 
 @Composable
-fun MesocyclesListScreen(modifier: Modifier = Modifier){
-    Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center){
-        Text("Mesocycles!")
+fun MesocyclesListScreen(
+    modifier: Modifier = Modifier,
+    viewModel: MesocycleViewModel = hiltViewModel()
+) {
+    val activeMesocycle by viewModel.mesocycle.collectAsState()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(
+            "Mesocycles!",
+            modifier = Modifier.align(Alignment.Center)
+        )
+
+        NewMesocycleButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(
+                    end = 24.dp,
+                    bottom = 150.dp
+                ),
+            viewModel
+        )
     }
 }
 
 @Composable
 @Preview
-fun PreviewMesocyclesScreen(){
+fun PreviewMesocyclesScreen() {
     MesocyclesListScreen()
 }

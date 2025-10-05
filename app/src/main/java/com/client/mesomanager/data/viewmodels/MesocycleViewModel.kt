@@ -19,10 +19,27 @@ class MesocycleViewModel @Inject constructor(
     val mesocycle = _mesocycle.asStateFlow()
 
     fun createMesocycle() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val newMeso = Mesocycle(1)
+        executeAsync {
+            val newMeso = Mesocycle()
+            _mesocycle.value = newMeso
+        }
+    }
 
-            mesocycleDao.insert(newMeso)
+    fun saveNewMesocycle(meso: Mesocycle) {
+        executeAsync {
+            mesocycleDao.insert(meso)
+        }
+    }
+
+    fun updateMesocycle(meso: Mesocycle) {
+        executeAsync {
+            mesocycleDao.update(meso)
+        }
+    }
+
+    private fun executeAsync(action: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            action()
         }
     }
 }
