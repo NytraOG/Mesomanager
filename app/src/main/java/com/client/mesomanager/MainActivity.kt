@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.client.mesomanager.data.DatabaseModule
 import com.client.mesomanager.ui.composables.BottomNavigationBar
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,6 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        applicationContext.deleteDatabase(DatabaseModule.DATABASE_NAME)
+
         enableEdgeToEdge()
         setContent {
             MesomanagerTheme {

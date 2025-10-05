@@ -23,7 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.client.mesomanager.R
 import com.client.mesomanager.ui.screens.ExercisesScreen
-import com.client.mesomanager.ui.screens.MesocyclesScreen
+import com.client.mesomanager.ui.screens.MesocyclesListScreen
 import com.client.mesomanager.ui.screens.MoreScreen
 import com.client.mesomanager.ui.screens.WorkoutScreen
 import com.client.mesomanager.ui.theme.MesomanagerTheme
@@ -82,7 +82,7 @@ fun AppNavHost(
             composable(destination.route) {
                 when (destination) {
                     Destination.WORKOUT -> WorkoutScreen()
-                    Destination.MESOCYCLES -> MesocyclesScreen()
+                    Destination.MESOCYCLES -> MesocyclesListScreen()
                     Destination.EXERCISES -> ExercisesScreen()
                     Destination.MORE -> MoreScreen()
                 }

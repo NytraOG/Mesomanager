@@ -10,5 +10,6 @@ data class MesoWithWorkouts(
     @Relation(
         parentColumn = "id",
         entityColumn = "mesocycleId"
-    ) val workouts: List<Workout>
+    )
+    val workouts: List<Workout>
 )

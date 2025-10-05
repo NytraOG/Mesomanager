@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 @HiltViewModel
 class MesocycleViewModel @Inject constructor(
@@ -21,8 +20,7 @@ class MesocycleViewModel @Inject constructor(
 
     fun createMesocycle() {
         viewModelScope.launch(Dispatchers.IO) {
-            val newId = UUID.randomUUID()
-            val newMeso = Mesocycle(newId)
+            val newMeso = Mesocycle(1)
 
             mesocycleDao.insert(newMeso)
         }

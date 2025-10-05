@@ -2,12 +2,10 @@ package com.client.mesomanager.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.UUID
 
 @Entity
 data class Routine(
-    @PrimaryKey val id: UUID,
-    val workout: Workout,
-    val exercise: Exercise,
-    val sets: List<Set>
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val workoutId: Int,
+    val exerciseId: Int,
 )

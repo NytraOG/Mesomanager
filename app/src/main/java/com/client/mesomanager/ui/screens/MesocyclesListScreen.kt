@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MesocyclesScreen(modifier: Modifier = Modifier){
+fun MesocyclesListScreen(modifier: Modifier = Modifier){
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
         Text("Mesocycles!")
@@ -19,5 +19,5 @@ fun MesocyclesScreen(modifier: Modifier = Modifier){
 @Composable
 @Preview
 fun PreviewMesocyclesScreen(){
-    MesocyclesScreen()
+    MesocyclesListScreen()
 }

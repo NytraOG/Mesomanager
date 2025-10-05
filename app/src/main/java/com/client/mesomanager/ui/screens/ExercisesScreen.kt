@@ -17,7 +17,6 @@ fun ExercisesScreen(modifier: Modifier = Modifier,
                     viewModel: ExercisesViewModel = hiltViewModel()){
 
     val exercise by viewModel.exercise.collectAsState()
-    viewModel.loadExercise(0)
 
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
