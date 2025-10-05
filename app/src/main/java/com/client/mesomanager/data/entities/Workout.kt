@@ -2,12 +2,12 @@ package com.client.mesomanager.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity
-data class Set(
+data class Workout(
     @PrimaryKey val id: Int,
-    val routine: Routine,
-    val load: Double,
-    val repetitionsTarget: Int,
-    val repetitionsDone: Int
+    val date: Date,
+    val mesocycle: Mesocycle,
+    val routines: List<Routine>
 )

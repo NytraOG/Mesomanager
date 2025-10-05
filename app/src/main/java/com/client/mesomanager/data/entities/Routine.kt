@@ -4,10 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Set(
+data class Routine(
     @PrimaryKey val id: Int,
-    val routine: Routine,
-    val load: Double,
-    val repetitionsTarget: Int,
-    val repetitionsDone: Int
+    val workout: Workout,
+    val exercise: Exercise,
+    val sets: List<Set>
 )
