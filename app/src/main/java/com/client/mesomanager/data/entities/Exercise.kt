@@ -12,5 +12,6 @@ data class Exercise(
     val muscleGroupPrimary: MuscleGroup,
     val muscleGroupSecondary: MuscleGroup,
     val type: ExerciseType,
-    val videoId: String?
+    val videoId: String?,
+    val routines: List<Routine>
 )

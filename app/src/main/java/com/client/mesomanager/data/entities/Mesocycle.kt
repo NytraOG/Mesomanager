@@ -6,6 +6,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class Mesocycle(
     @PrimaryKey val id: Int,
-    val name: String,
-    val workouts: List<Workout>
+    val name: String
 )

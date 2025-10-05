@@ -8,6 +8,6 @@ import java.util.Date
 data class Workout(
     @PrimaryKey val id: Int,
     val date: Date,
-    val mesocycle: Mesocycle,
+    val mesocycleId: Int,
     val routines: List<Routine>
 )
