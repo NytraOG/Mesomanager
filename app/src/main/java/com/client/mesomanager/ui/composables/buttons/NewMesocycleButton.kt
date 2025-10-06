@@ -22,13 +22,8 @@ fun NewMesocycleButton(
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
-    fun openDialog() {
-        showDialog = true
-    }
-
-    fun closeDialog() {
-        showDialog = false
-    }
+    fun openDialog() { showDialog = true }
+    fun closeDialog() { showDialog = false }
 
     if (showDialog) {
         NewMesocycleDialog(

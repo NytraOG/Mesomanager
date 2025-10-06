@@ -6,7 +6,7 @@ import java.util.Date
 
 @Entity
 data class Workout(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val date: Date,
     val mesocycleId: Int,
 )
