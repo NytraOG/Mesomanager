@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -24,11 +25,16 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
     val radioOptions = listOf("Kg", "Lb")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
-    Column(modifier.selectableGroup()) {
+    Row(
+        modifier = modifier
+            .selectableGroup()
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         radioOptions.forEach { text ->
             Row(
                 Modifier
-                    .fillMaxWidth()
                     .height(56.dp)
                     .selectable(
                         selected = (text == selectedOption),
@@ -53,4 +59,10 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewMassMeasurementUnitRadios() {
+    MassMeasurementUnitRadioButton()
 }

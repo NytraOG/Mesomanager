@@ -35,7 +35,9 @@ fun MesocyclesListScreen(
                     end = 24.dp,
                     bottom = 150.dp
                 ),
-            onConfirmDialog = {}
+            onConfirmDialog = { dto ->
+
+            }
         )
     }
 }
