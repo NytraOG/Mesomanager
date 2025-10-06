@@ -13,33 +13,46 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.client.mesomanager.data.viewmodels.MesocycleViewModel
 import com.client.mesomanager.ui.composables.dialogues.NewMesocycleDialog
 
 @Composable
-fun NewMesocycleButton(modifier: Modifier = Modifier,
-                       viewModel: MesocycleViewModel? = null) {
+fun NewMesocycleButton(
+    modifier: Modifier = Modifier,
+    onConfirmDialog: () -> Unit
+) {
     var showDialog by remember { mutableStateOf(false) }
 
-    if(showDialog){
-        NewMesocycleDialog(modifier)
+    fun openDialog() {
+        showDialog = true
+    }
+
+    fun closeDialog() {
+        showDialog = false
+    }
+
+    if (showDialog) {
+        NewMesocycleDialog(
+            modifier = modifier,
+            onDismissRequest = { closeDialog() },
+            onConfirmation = onConfirmDialog)
     }
 
     FloatingActionButton(
-        onClick = {
-            showDialog = true
-        },
+        onClick = { openDialog() },
         shape = CircleShape,
         containerColor = Color(0xfff34d4d),
         contentColor = Color(0xfffccece),
         modifier = modifier
-        ) {
+    ) {
         Icon(Icons.Default.Add, "Large floating action button")
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewButton(){
-    NewMesocycleButton()
+fun PreviewButton() {
+    NewMesocycleButton(
+        modifier = Modifier,
+        onConfirmDialog = {}
+    )
 }

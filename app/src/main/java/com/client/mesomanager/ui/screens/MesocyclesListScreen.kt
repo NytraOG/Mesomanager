@@ -35,7 +35,7 @@ fun MesocyclesListScreen(
                     end = 24.dp,
                     bottom = 150.dp
                 ),
-            viewModel
+            onConfirmDialog = {}
         )
     }
 }
