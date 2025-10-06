@@ -1,28 +1,40 @@
 package com.client.mesomanager.ui.composables.buttons
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.client.mesomanager.data.viewmodels.MesocycleViewModel
+import com.client.mesomanager.ui.composables.dialogues.NewMesocycleDialog
 
 @Composable
 fun NewMesocycleButton(modifier: Modifier = Modifier,
                        viewModel: MesocycleViewModel? = null) {
+    var showDialog by remember { mutableStateOf(false) }
+
+    if(showDialog){
+        NewMesocycleDialog(modifier)
+    }
+
     FloatingActionButton(
         onClick = {
-            viewModel?.createMesocycle()
+            showDialog = true
         },
         shape = CircleShape,
         containerColor = Color(0xfff34d4d),
         contentColor = Color(0xfffccece),
         modifier = modifier
         ) {
-        //Icon(Icon.Def, "Large floating action button")
+        Icon(Icons.Default.Add, "Large floating action button")
     }
 }
 
