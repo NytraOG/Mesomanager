@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.client.mesomanager.data.daos.MesocycleDao
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.data.entities.dtos.NewMesoDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +19,17 @@ class MesocycleViewModel @Inject constructor(
     private val _mesocycle = MutableStateFlow<Mesocycle?>(null)
     val mesocycle = _mesocycle.asStateFlow()
 
-    fun createMesocycle() {
+    private val _mesocycles = MutableStateFlow<List<Mesocycle>>(emptyList())
+    val mesocycles = _mesocycles.asStateFlow()
+
+    fun createMesocycle(dto: NewMesoDto) {
         executeAsync {
-            val newMeso = Mesocycle()
-            _mesocycle.value = newMeso
+            val newMeso = Mesocycle(
+                name = dto.name
+            )
+
+            saveNewMesocycle(newMeso)
+            _mesocycles.value + newMeso
         }
     }
 
@@ -34,6 +42,13 @@ class MesocycleViewModel @Inject constructor(
     fun updateMesocycle(meso: Mesocycle) {
         executeAsync {
             mesocycleDao.update(meso)
+        }
+    }
+
+    fun getAllMesocycles() {
+        executeAsync {
+            val allMesos = mesocycleDao.getMesocycleWithWorkouts().map { it.mesocycle }
+            _mesocycles.value = allMesos
         }
     }
 

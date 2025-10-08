@@ -3,6 +3,8 @@ package com.client.mesomanager.ui.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,19 +16,28 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.client.mesomanager.data.viewmodels.MesocycleViewModel
 import com.client.mesomanager.ui.composables.buttons.NewMesocycleButton
+import com.client.mesomanager.ui.composables.cards.MesocycleCard
 
 @Composable
 fun MesocyclesListScreen(
     modifier: Modifier = Modifier,
     viewModel: MesocycleViewModel = hiltViewModel()
 ) {
-    val activeMesocycle by viewModel.mesocycle.collectAsState()
+    val allMesocycles by viewModel.mesocycles.collectAsState()
+    viewModel.getAllMesocycles()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Text(
-            "Mesocycles!",
-            modifier = Modifier.align(Alignment.Center)
-        )
+        LazyColumn(
+            modifier = Modifier
+                .padding(12.dp)
+        ) {
+            itemsIndexed(allMesocycles) { index, meso ->
+                MesocycleCard(
+                    meso = meso,
+                    onDelete = {}
+                )
+            }
+        }
 
         NewMesocycleButton(
             modifier = Modifier
@@ -36,7 +47,7 @@ fun MesocyclesListScreen(
                     bottom = 150.dp
                 ),
             onConfirmDialog = { dto ->
-
+                viewModel.createMesocycle(dto)
             }
         )
     }

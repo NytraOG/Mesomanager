@@ -100,10 +100,10 @@ fun InputGroup(
 
         OutlinedTextField(
             state = text,
-            placeholder = { Text("Eternal Bulk Hypertrophy") },
+            placeholder = { Text("Eternal Bulk Hypertrophy #7") },
             label = { Text("Mesocycle Name") },
             lineLimits = TextFieldLineLimits.SingleLine,
-            inputTransformation = InputTransformation.maxLength(20)
+            inputTransformation = InputTransformation.maxLength(25)
         )
         Spacer(modifier = Modifier.height(36.dp))
 
@@ -129,7 +129,7 @@ fun InputGroup(
         Spacer(modifier = Modifier.height(12.dp))
         Slider(
             value = sliderWeeksPosition,
-            onValueChange = { onWeeksValueChanged(it) },//{ sliderWeeksPosition = it },
+            onValueChange = { onWeeksValueChanged(it) },
             colors = SliderDefaults.colors(
                 thumbColor = MaterialTheme.colorScheme.secondary,
                 activeTrackColor = MaterialTheme.colorScheme.secondary,

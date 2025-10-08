@@ -23,14 +23,22 @@ fun NewMesocycleButton(
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
-    fun openDialog() { showDialog = true }
-    fun closeDialog() { showDialog = false }
+    fun openDialog() {
+        showDialog = true
+    }
+
+    fun closeDialog() {
+        showDialog = false
+    }
 
     if (showDialog) {
         NewMesocycleDialog(
             modifier = modifier,
             onDismissRequest = { closeDialog() },
-            onConfirmation = onConfirmDialog
+            onConfirmation = {
+                onConfirmDialog(it)
+                closeDialog()
+            }
         )
     }
 
