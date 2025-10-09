@@ -35,20 +35,21 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
 
     Scaffold(
-        modifier = modifier, bottomBar = {
+        modifier = modifier,
+        bottomBar = {
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
                 Destination.entries.forEachIndexed { index, destination ->
                     NavigationBarItem(
                         selectedDestination == index,
                         onClick = {
-                        navController.navigate(route = destination.route)
-                        selectedDestination = index
-                    }, icon = {
-                        val iconVector = ImageVector.vectorResource(destination.iconId)
-                        Icon(iconVector, contentDescription = destination.description)
-                    }, label = {
-                        destination.label
-                    })
+                            navController.navigate(route = destination.route)
+                            selectedDestination = index
+                        }, icon = {
+                            val iconVector = ImageVector.vectorResource(destination.iconId)
+                            Icon(iconVector, contentDescription = destination.description)
+                        }, label = {
+                            destination.label
+                        })
                 }
             }
         }) { contentPadding ->
@@ -63,8 +64,18 @@ enum class Destination(
     val description: String
 ) {
     WORKOUT("workout", "Workout", R.drawable.navigation_workout, "View current Workout"),
-    MESOCYCLES("mesocycles", "Mesocycles", R.drawable.navigation_mesocycle, "Create and view Mesocycles"),
-    EXERCISES("exercises", "Exercises", R.drawable.navigation_exercises, "Create and view Exercises"),
+    MESOCYCLES(
+        "mesocycles",
+        "Mesocycles",
+        R.drawable.navigation_mesocycle,
+        "Create and view Mesocycles"
+    ),
+    EXERCISES(
+        "exercises",
+        "Exercises",
+        R.drawable.navigation_exercises,
+        "Create and view Exercises"
+    ),
     MORE("more", "More", R.drawable.navigation_more, "More Options"),
 }
 

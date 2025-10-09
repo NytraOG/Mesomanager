@@ -29,7 +29,10 @@ fun MesocyclesListScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
-                .padding(12.dp)
+                .padding(
+                    vertical = 32.dp,
+                    horizontal = 12.dp
+                )
         ) {
             itemsIndexed(allMesocycles) { index, meso ->
                 MesocycleCard(

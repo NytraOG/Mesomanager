@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        applicationContext.deleteDatabase(DatabaseModule.DATABASE_NAME)
+        //applicationContext.deleteDatabase(DatabaseModule.DATABASE_NAME)
 
         enableEdgeToEdge()
         setContent {

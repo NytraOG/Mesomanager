@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxState
@@ -26,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.ui.theme.BlueGrey80
+import com.client.mesomanager.ui.theme.MesomanagerTheme
 
 @Composable
 fun MesocycleCard(
@@ -35,7 +39,7 @@ fun MesocycleCard(
 ) {
     SwipeToDismissBox(
         state = dismissState,
-        backgroundContent =  {
+        backgroundContent = {
             val color = when (dismissState.currentValue) {
                 SwipeToDismissBoxValue.EndToStart -> Color.Red
                 else -> Color.Transparent
@@ -59,6 +63,7 @@ fun MesocycleCard(
                             tint = Color.White
                         )
                         Text(
+
                             text = "Delete",
                             color = Color.White,
                             style = MaterialTheme.typography.bodyLarge
@@ -68,35 +73,43 @@ fun MesocycleCard(
             }
         },
         content = {
-            Card(
+            ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                colors = CardDefaults.cardColors(
+                    //containerColor = Color.Green,
+                    //contentColor = Color.White,
+                )
             ) {
                 ListItem(
-                    headlineContent = { Text(meso.name) }
+                    headlineContent = { Text(meso.name) },
+                    colors = ListItemDefaults.colors(
+                        containerColor = BlueGrey80
+                    )
                 )
             }
         }
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun PreviewMesocycleCardUnswiped(){
+fun PreviewMesocycleCardUnswiped() {
     val meso = Mesocycle(name = "Meso 1")
 
-    MesocycleCard(
-        meso = meso,
-        onDelete = {}
-    )
+    MesomanagerTheme(darkTheme = true) {
+        MesocycleCard(
+            meso = meso,
+            onDelete = {}
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMesocycleCardSwiped(){
+fun PreviewMesocycleCardSwiped() {
     val meso = Mesocycle(name = "Meso 2")
     val swipedState = rememberSwipeToDismissBoxState()
 
