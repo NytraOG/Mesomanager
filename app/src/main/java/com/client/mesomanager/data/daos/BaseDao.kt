@@ -16,5 +16,5 @@ interface BaseDao<T> {
     fun update(vararg objects: T)
 
     @Delete
-    fun delete(obj: Exercise)
+    fun delete(obj: T)
 }

@@ -29,7 +29,7 @@ class MesocycleViewModel @Inject constructor(
             )
 
             saveNewMesocycle(newMeso)
-            _mesocycles.value + newMeso
+            _mesocycles.value = _mesocycles.value + newMeso
         }
     }
 
@@ -42,6 +42,13 @@ class MesocycleViewModel @Inject constructor(
     fun updateMesocycle(meso: Mesocycle) {
         executeAsync {
             mesocycleDao.update(meso)
+        }
+    }
+
+    fun deleteMesocycle(meso: Mesocycle){
+        executeAsync {
+            _mesocycles.value = _mesocycles.value - meso
+            mesocycleDao.delete(meso)
         }
     }
 
