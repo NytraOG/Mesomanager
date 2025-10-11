@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.ui.theme.BlueGrey80
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 import com.client.mesomanager.ui.theme.Red80
@@ -105,7 +106,7 @@ fun MesocycleCard(
                     headlineContent = {
                       Column {
                           Text(meso.name, style = TextStyle(fontSize = 24.sp) )
-                          Text("$meso")
+                          Text("${meso.weeks} Weeks - ${meso.days} Days/Week")
                       }
                     },
                     colors = ListItemDefaults.colors(
@@ -121,7 +122,7 @@ fun MesocycleCard(
 @Preview(showBackground = true)
 @Composable
 fun PreviewMesocycleCardUnswiped() {
-    val meso = Mesocycle(name = "Meso 1")
+    val meso = Mesocycle(name = "Meso 1", days =  4, weeks = 6, intent = TrainingIntent.Strength)
 
     MesomanagerTheme(darkTheme = true) {
         MesocycleCard(
@@ -135,7 +136,7 @@ fun PreviewMesocycleCardUnswiped() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewMesocycleCardSwiped() {
-    val meso = Mesocycle(name = "Meso 2")
+    val meso = Mesocycle(name = "Meso 2", days = 4, weeks = 6, intent = TrainingIntent.Strength)
     val swipedState = rememberSwipeToDismissBoxState()
 
     LaunchedEffect(Unit) {

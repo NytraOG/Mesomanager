@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.client.mesomanager.data.daos.MesocycleDao
 import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.data.entities.dtos.NewMesoDto
+import com.client.mesomanager.data.enums.TrainingIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,10 @@ class MesocycleViewModel @Inject constructor(
     fun createMesocycle(dto: NewMesoDto) {
         executeAsync {
             val newMeso = Mesocycle(
-                name = dto.name
+                name = dto.name,
+                days = dto.days,
+                weeks = dto.weeks,
+                intent = TrainingIntent.Strength
             )
 
             saveNewMesocycle(newMeso)
