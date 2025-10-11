@@ -1,16 +1,12 @@
-package com.client.mesomanager.data.entities
+package com.client.mesomanager.data.entities.dtos
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.client.mesomanager.data.enums.ExerciseType
 import com.client.mesomanager.data.enums.MuscleGroup
 
-@Entity
-data class Exercise(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+data class NewExerciseDto(
     val name: String,
     val muscleGroupPrimary: MuscleGroup,
     val muscleGroupSecondary: MuscleGroup,
     val type: ExerciseType,
-    val videoId: String?,
+    val videoId: String?
 )

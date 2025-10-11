@@ -16,7 +16,7 @@ import com.client.mesomanager.data.viewmodels.ExercisesViewModel
 fun ExercisesScreen(modifier: Modifier = Modifier,
                     viewModel: ExercisesViewModel = hiltViewModel()){
 
-    val exercise by viewModel.exercise.collectAsState()
+    val exercise by viewModel.selectedExercise.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){

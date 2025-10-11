@@ -56,7 +56,7 @@ class MesocycleViewModel @Inject constructor(
         }
     }
 
-    fun getAllMesocycles() {
+    fun loadAllMesocycles() {
         executeAsync {
             val allMesos = mesocycleDao.getMesocycleWithWorkouts().map { it.mesocycle }
             _mesocycles.value = allMesos
