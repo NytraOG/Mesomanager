@@ -17,9 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -27,26 +25,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.ui.theme.BlueGrey80
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 import com.client.mesomanager.ui.theme.Red80
-import kotlinx.coroutines.launch
 
 @Composable
 fun MesocycleCard(
     meso: Mesocycle,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    dismissState: SwipeToDismissBoxState
 ) {
-    //val scope = rememberCoroutineScope()
-    val dismissState = rememberSwipeToDismissBoxState()
-
     SwipeToDismissBox(
         state = dismissState,
         backgroundContent = {
@@ -105,13 +102,19 @@ fun MesocycleCard(
                 )
             ) {
                 ListItem(
-                    headlineContent = { Text(meso.name) },
+                    headlineContent = {
+                      Column {
+                          Text(meso.name, style = TextStyle(fontSize = 24.sp) )
+                          Text("$meso")
+                      }
+                    },
                     colors = ListItemDefaults.colors(
                         containerColor = BlueGrey80
-                    )
+                    ),
+                    leadingContent = {  }
                 )
             }
-        },
+        }
     )
 }
 
@@ -123,7 +126,8 @@ fun PreviewMesocycleCardUnswiped() {
     MesomanagerTheme(darkTheme = true) {
         MesocycleCard(
             meso = meso,
-            onDelete = {}
+            onDelete = {},
+            dismissState = rememberSwipeToDismissBoxState()
         )
     }
 }
@@ -140,6 +144,7 @@ fun PreviewMesocycleCardSwiped() {
 
     MesocycleCard(
         meso = meso,
-        onDelete = {}
+        onDelete = {},
+        dismissState = swipedState
     )
 }
