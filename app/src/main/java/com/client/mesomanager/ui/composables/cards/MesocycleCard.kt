@@ -119,7 +119,7 @@ fun MesocycleCard(
     )
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 fun PreviewMesocycleCardUnswiped() {
     val meso = Mesocycle(name = "Meso 1", days =  4, weeks = 6, intent = TrainingIntent.Strength)
@@ -133,7 +133,7 @@ fun PreviewMesocycleCardUnswiped() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 fun PreviewMesocycleCardSwiped() {
     val meso = Mesocycle(name = "Meso 2", days = 4, weeks = 6, intent = TrainingIntent.Strength)
