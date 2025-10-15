@@ -1,7 +1,10 @@
 package com.client.mesomanager.ui.composables.cards
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
@@ -22,6 +25,7 @@ import com.client.mesomanager.data.entities.Exercise
 import com.client.mesomanager.data.enums.ExerciseType
 import com.client.mesomanager.data.enums.MuscleGroup
 import com.client.mesomanager.ui.theme.BlueGrey80
+import com.client.mesomanager.ui.theme.MesomanagerTheme
 
 @Composable
 fun ExerciseCard(
@@ -43,8 +47,19 @@ fun ExerciseCard(
                 ListItem(
                     headlineContent = {
                         Column {
-                            Text("${exercise.muscleGroupPrimary} - ${exercise.type}", style = TextStyle(fontSize = 16.sp) )
-                            Text(exercise.name, style = TextStyle(fontSize = 24.sp) )
+
+                            Text(exercise.name, style = TextStyle(fontSize = 24.sp))
+
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                "${exercise.muscleGroupPrimary} - ${exercise.muscleGroupSecondary}",
+                                style = TextStyle(fontSize = 16.sp)
+                            )
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Text(
+                                "${exercise.type}",
+                                style = TextStyle(fontSize = 12.sp)
+                            )
                         }
                     },
                     colors = ListItemDefaults.colors(
@@ -63,15 +78,17 @@ fun PreviewExerciseCard() {
     val exercise = Exercise(
         id = 1,
         name = "Hammercurls",
-        muscleGroupPrimary = MuscleGroup.Hamstrings,
+        muscleGroupPrimary = MuscleGroup.Biceps,
         muscleGroupSecondary = MuscleGroup.Forearms,
-        type = ExerciseType.BodyweightLoadable,
+        type = ExerciseType.Dumbbell,
         videoId = "idVongVideoHer"
     )
 
-    ExerciseCard(
-        exercise = exercise,
-        onDelete = {},
-        dismissState = rememberSwipeToDismissBoxState()
-    )
+    MesomanagerTheme(darkTheme = true) {
+        ExerciseCard(
+            exercise = exercise,
+            onDelete = {},
+            dismissState = rememberSwipeToDismissBoxState()
+        )
+    }
 }
