@@ -18,25 +18,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.client.mesomanager.data.viewmodels.ExercisesViewModel
+import com.client.mesomanager.ui.composables.buttons.NewExerciseButton
 import com.client.mesomanager.ui.composables.cards.ExerciseCard
 import kotlinx.coroutines.launch
 
 @Composable
-fun ExercisesScreen(modifier: Modifier = Modifier,
-                    viewModel: ExercisesViewModel = hiltViewModel()){
+fun ExercisesScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ExercisesViewModel = hiltViewModel()
+) {
 
     viewModel.loadAllExercises()
     val allExercises by viewModel.allExercises.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center){
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
         LazyColumn(
             modifier = Modifier.padding(
                 vertical = 32.dp,
                 horizontal = 12.dp
             )
         ) {
-            itemsIndexed(allExercises){ index, exercise ->
+            itemsIndexed(allExercises) { index, exercise ->
                 val dismissState = rememberSwipeToDismissBoxState()
                 val scope = rememberCoroutineScope()
 
@@ -53,12 +58,14 @@ fun ExercisesScreen(modifier: Modifier = Modifier,
             }
         }
 
-
+        NewExerciseButton(
+            onConfirmDialog = {}
+        )
     }
 }
 
 @Composable
 @Preview
-fun PreviewExercisesScreen(){
+fun PreviewExercisesScreen() {
     ExercisesScreen()
 }
