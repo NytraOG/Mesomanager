@@ -1,6 +1,5 @@
 package com.client.mesomanager.ui.composables.menus
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.input.TextFieldLineLimits
@@ -18,17 +17,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.client.mesomanager.data.enums.ExerciseType
 import com.client.mesomanager.data.enums.MuscleGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MuscleGroupSelector(
-    label: String,
-    onSelected: (selection: MuscleGroup) -> Unit
+fun ExerciseTypeSelector(
+    onSelected: (selection: ExerciseType) -> Unit
 ) {
     val (allowExpanded, setExpanded) = remember { mutableStateOf(false) }
     val expanded = allowExpanded
-    val textFieldState = rememberTextFieldState("Choose Muscle Group")
+    val textFieldState = rememberTextFieldState("Choose Exercise Type")
 
     ExposedDropdownMenuBox(
         expanded = expanded, onExpandedChange = setExpanded
@@ -40,7 +39,7 @@ fun MuscleGroupSelector(
             state = textFieldState,
             readOnly = true,
             lineLimits = TextFieldLineLimits.SingleLine,
-            label = { Text(label) },
+            label = { Text("Exercise Type") },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
                     expanded = expanded,
@@ -55,7 +54,7 @@ fun MuscleGroupSelector(
             expanded = expanded,
             onDismissRequest = { setExpanded(false) },
         ) {
-            MuscleGroup.entries.forEach { option ->
+            ExerciseType.entries.forEach { option ->
                 DropdownMenuItem(
                     text = {
                         Text(

@@ -31,11 +31,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.client.mesomanager.data.enums.ExerciseType
 import com.client.mesomanager.data.enums.MuscleGroup
+import com.client.mesomanager.ui.composables.menus.ExerciseTypeSelector
 import com.client.mesomanager.ui.composables.menus.PrimaryMuscleGroupSelector
 import com.client.mesomanager.ui.composables.menus.SecondaryMuscleGroupSelector
 
@@ -46,6 +48,8 @@ fun NewExerciseDialog() {
     var selectedSecondaryMuscleGroup by remember { mutableStateOf(MuscleGroup.Chest) }
     var selectedExerciseType by remember { mutableStateOf(ExerciseType.Barbell) }
 
+    val nameTextFieldState = rememberTextFieldState()
+    val videoTextFieldState = rememberTextFieldState()
 
     Dialog(
         onDismissRequest = {}
@@ -60,19 +64,46 @@ fun NewExerciseDialog() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.SpaceBetween
+                    .padding(
+                        vertical = 18.dp,
+                        horizontal = 12.dp
+                    ),
+                verticalArrangement = Arrangement.Top
             ) {
+                Text("NEW EXERCISE", style = TextStyle(fontSize = 24.sp))
+                Spacer(modifier = Modifier.height(24.dp))
+                OutlinedTextField(
+                    modifier = Modifier
+                        .width(280.dp),
+                    state = nameTextFieldState,
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    label = { Text("Name") },
+                )
+                Spacer(modifier = Modifier.height(16.dp))
                 PrimaryMuscleGroupSelector(
                     onSelected = { selection ->
                         selectedPrimaryMuscleGroup = selection
                     }
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 SecondaryMuscleGroupSelector(
                     onSelected = { selection ->
                         selectedSecondaryMuscleGroup = selection
                     }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                ExerciseTypeSelector(
+                    onSelected = { selection ->
+                        selectedExerciseType = selection
+                    }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    modifier = Modifier
+                        .width(280.dp),
+                    state = videoTextFieldState,
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    label = { Text("YouTube Video Id") },
                 )
             }
         }
