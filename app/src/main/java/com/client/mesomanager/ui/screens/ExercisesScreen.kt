@@ -1,6 +1,8 @@
 package com.client.mesomanager.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,7 +34,7 @@ fun ExercisesScreen(
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopStart
     ) {
         LazyColumn(
             modifier = Modifier.padding(
@@ -58,6 +60,12 @@ fun ExercisesScreen(
         }
 
         NewExerciseButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(
+                    end = 24.dp,
+                    bottom = 150.dp
+                ),
             onConfirmDialog = { dto ->
                 viewModel.createExercises(dto)
             }
