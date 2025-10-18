@@ -27,7 +27,6 @@ fun ExercisesScreen(
     modifier: Modifier = Modifier,
     viewModel: ExercisesViewModel = hiltViewModel()
 ) {
-
     viewModel.loadAllExercises()
     val allExercises by viewModel.allExercises.collectAsState()
 
@@ -59,7 +58,9 @@ fun ExercisesScreen(
         }
 
         NewExerciseButton(
-            onConfirmDialog = {}
+            onConfirmDialog = { dto ->
+                viewModel.createExercises(dto)
+            }
         )
     }
 }

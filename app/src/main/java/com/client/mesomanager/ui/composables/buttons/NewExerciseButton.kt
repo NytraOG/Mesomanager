@@ -12,14 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.client.mesomanager.data.entities.dtos.NewMesoDto
+import com.client.mesomanager.data.entities.dtos.NewExerciseDto
 import com.client.mesomanager.ui.composables.dialogues.NewExerciseDialog
-import com.client.mesomanager.ui.composables.dialogues.NewMesocycleDialog
 
 @Composable
 fun NewExerciseButton(
     modifier: Modifier = Modifier,
-    onConfirmDialog: (dto: NewMesoDto) -> Unit
+    onConfirmDialog: (dto: NewExerciseDto) -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -33,7 +32,10 @@ fun NewExerciseButton(
 
     if (showDialog) {
         NewExerciseDialog(
-
+            onConfirmation = { it ->
+                onConfirmDialog(it)
+                closeDialog()
+            }
         )
     }
 
