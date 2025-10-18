@@ -47,18 +47,16 @@ fun ExerciseCard(
                 ListItem(
                     headlineContent = {
                         Column {
-
+                            Text(
+                                "${exercise.type}",
+                                style = TextStyle(fontSize = 10.sp)
+                            )
                             Text(exercise.name, style = TextStyle(fontSize = 24.sp))
 
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 "${exercise.muscleGroupPrimary} - ${exercise.muscleGroupSecondary}",
                                 style = TextStyle(fontSize = 16.sp)
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            Text(
-                                "${exercise.type}",
-                                style = TextStyle(fontSize = 12.sp)
                             )
                         }
                     },
