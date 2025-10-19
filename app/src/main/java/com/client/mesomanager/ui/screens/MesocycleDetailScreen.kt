@@ -42,13 +42,6 @@ fun MesocycleDetailScreen(
     var selectedDay by remember { mutableIntStateOf(1) }
     val days = (1..(currentMeso?.days ?: 0)).toList()
 
-    val showDay1 = selectedDay == 1
-    val showDay2 = selectedDay == 2
-    val showDay3 = selectedDay == 3
-    val showDay4 = selectedDay == 4
-    val showDay5 = selectedDay == 5
-    val showDay6 = selectedDay == 6
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,38 +74,11 @@ fun MesocycleDetailScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
 
-        if (showDay1) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                MuscleGroupSelectionsScreen(
-                    viewModel = sharedViewmodel,
-                    day = 1
-                )
-            }
-        }
-        if (showDay2) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 2", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
-            }
-        }
-        if (showDay3) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 3", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
-            }
-        }
-        if (showDay4) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 4", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
-            }
-        }
-        if (showDay5) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 5", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
-            }
-        }
-        if (showDay6) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 6", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
-            }
+        Box(modifier = Modifier.fillMaxSize()) {
+            MuscleGroupSelectionsScreen(
+                viewModel = sharedViewmodel,
+                day = selectedDay
+            )
         }
     }
 }
