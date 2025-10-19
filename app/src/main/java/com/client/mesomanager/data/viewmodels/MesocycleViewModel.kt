@@ -32,6 +32,7 @@ class MesocycleViewModel @Inject constructor(
                 intent = TrainingIntent.Strength
             )
 
+            _mesocycle.value = newMeso
             saveNewMesocycle(newMeso)
             _mesocycles.value = _mesocycles.value + newMeso
         }

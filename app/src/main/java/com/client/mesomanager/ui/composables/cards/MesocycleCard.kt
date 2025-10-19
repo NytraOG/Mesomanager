@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -43,7 +44,8 @@ import com.client.mesomanager.ui.theme.Red80
 fun MesocycleCard(
     meso: Mesocycle,
     onDelete: () -> Unit,
-    dismissState: SwipeToDismissBoxState
+    dismissState: SwipeToDismissBoxState,
+    cardOnClick: () -> Unit
 ) {
     SwipeToDismissBox(
         state = dismissState,
@@ -104,15 +106,25 @@ fun MesocycleCard(
             ) {
                 ListItem(
                     headlineContent = {
-                      Column {
-                          Text(meso.name, style = TextStyle(fontSize = 24.sp) )
-                          Text("${meso.weeks} Weeks - ${meso.days} Days/Week")
-                      }
+                        Column {
+                            Text(meso.name, style = TextStyle(fontSize = 24.sp))
+                            Text("${meso.weeks} Weeks - ${meso.days} Days/Week")
+                        }
                     },
                     colors = ListItemDefaults.colors(
                         containerColor = BlueGrey80
                     ),
-                    leadingContent = {  }
+                    leadingContent = {
+                        IconButton(
+                            onClick = cardOnClick
+                        ) { }
+                    },
+                    trailingContent = {
+                        IconButton(
+                            modifier = Modifier.width(100.dp),
+                            onClick = cardOnClick
+                        ) { }
+                    }
                 )
             }
         }
@@ -122,13 +134,14 @@ fun MesocycleCard(
 @Preview()
 @Composable
 fun PreviewMesocycleCardUnswiped() {
-    val meso = Mesocycle(name = "Meso 1", days =  4, weeks = 6, intent = TrainingIntent.Strength)
+    val meso = Mesocycle(name = "Meso 1", days = 4, weeks = 6, intent = TrainingIntent.Strength)
 
     MesomanagerTheme(darkTheme = true) {
         MesocycleCard(
             meso = meso,
             onDelete = {},
-            dismissState = rememberSwipeToDismissBoxState()
+            dismissState = rememberSwipeToDismissBoxState(),
+            cardOnClick = {}
         )
     }
 }
@@ -146,6 +159,7 @@ fun PreviewMesocycleCardSwiped() {
     MesocycleCard(
         meso = meso,
         onDelete = {},
-        dismissState = swipedState
+        dismissState = swipedState,
+        cardOnClick = {}
     )
 }

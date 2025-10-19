@@ -22,7 +22,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.client.mesomanager.R
+import com.client.mesomanager.data.viewmodels.SharedViewmodel
 import com.client.mesomanager.ui.screens.ExercisesScreen
+import com.client.mesomanager.ui.screens.MesocycleDetailScreen
 import com.client.mesomanager.ui.screens.MesocyclesListScreen
 import com.client.mesomanager.ui.screens.MoreScreen
 import com.client.mesomanager.ui.screens.WorkoutScreen
@@ -35,13 +37,12 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
 
     Scaffold(
-        modifier = modifier,
-        bottomBar = {
+        modifier = modifier, bottomBar = {
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
                 Destination.entries.forEachIndexed { index, destination ->
-                    NavigationBarItem(
-                        selectedDestination == index,
-                        onClick = {
+                    if(destination.isNavItem)
+                    {
+                        NavigationBarItem(selectedDestination == index, onClick = {
                             navController.navigate(route = destination.route)
                             selectedDestination = index
                         }, icon = {
@@ -50,6 +51,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
                         }, label = {
                             destination.label
                         })
+                    }
                 }
             }
         }) { contentPadding ->
@@ -61,41 +63,49 @@ enum class Destination(
     val route: String,
     val label: String,
     @DrawableRes val iconId: Int,
-    val description: String
+    val description: String,
+    val isNavItem: Boolean
 ) {
-    WORKOUT("workout", "Workout", R.drawable.navigation_workout, "View current Workout"),
+    WORKOUT(
+        "workout",
+        "Workout",
+        R.drawable.navigation_workout,
+        "View current Workout",
+        true
+    ),
     MESOCYCLES(
         "mesocycles",
         "Mesocycles",
         R.drawable.navigation_mesocycle,
-        "Create and view Mesocycles"
+        "Create and view Mesocycles",
+        true
+    ),
+    MESOCYCLE(
+        "mesocycle", "Mesocycle", R.drawable.navigation_mesocycle, "Edit Mesocycle", false
     ),
     EXERCISES(
-        "exercises",
-        "Exercises",
-        R.drawable.navigation_exercises,
-        "Create and view Exercises"
+        "exercises", "Exercises", R.drawable.navigation_exercises, "Create and view Exercises", true
     ),
-    MORE("more", "More", R.drawable.navigation_more, "More Options"),
+    MORE("more", "More", R.drawable.navigation_more, "More Options", true),
 }
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController,
-    startDestination: Destination,
-    modifier: Modifier = Modifier
+    navController: NavHostController, startDestination: Destination, modifier: Modifier = Modifier
 ) {
     NavHost(
-        navController,
-        startDestination = startDestination.route
+        navController, startDestination = startDestination.route
     ) {
+        val sharedViewmodel = SharedViewmodel()
+
         Destination.entries.forEach { destination ->
             composable(destination.route) {
                 when (destination) {
                     Destination.WORKOUT -> WorkoutScreen()
-                    Destination.MESOCYCLES -> MesocyclesListScreen()
+                    Destination.MESOCYCLES -> MesocyclesListScreen(navController = navController, sharedViewmodel = sharedViewmodel)
                     Destination.EXERCISES -> ExercisesScreen()
                     Destination.MORE -> MoreScreen()
+                    Destination.MESOCYCLE -> MesocycleDetailScreen(sharedViewmodel = sharedViewmodel)
                 }
             }
         }

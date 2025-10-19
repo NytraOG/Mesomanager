@@ -15,7 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.client.mesomanager.data.viewmodels.MesocycleViewModel
+import com.client.mesomanager.data.viewmodels.SharedViewmodel
+import com.client.mesomanager.ui.composables.Destination
 import com.client.mesomanager.ui.composables.buttons.NewMesocycleButton
 import com.client.mesomanager.ui.composables.cards.MesocycleCard
 import kotlinx.coroutines.launch
@@ -23,6 +26,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun MesocyclesListScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
+    sharedViewmodel: SharedViewmodel,
     viewModel: MesocycleViewModel = hiltViewModel()
 ) {
     viewModel.loadAllMesocycles()
@@ -48,7 +53,11 @@ fun MesocyclesListScreen(
                             viewModel.deleteMesocycle(meso)
                         }
                     },
-                    dismissState
+                    cardOnClick = {
+                        sharedViewmodel.currentMeso = meso
+                        navController.navigate(Destination.MESOCYCLE.route)
+                    },
+                    dismissState = dismissState
                 )
             }
         }
@@ -62,6 +71,8 @@ fun MesocyclesListScreen(
                 ),
             onConfirmDialog = { dto ->
                 viewModel.createMesocycle(dto)
+                sharedViewmodel.currentMeso = viewModel.mesocycle.value
+                navController.navigate(Destination.MESOCYCLE.route)
             }
         )
     }
@@ -70,5 +81,5 @@ fun MesocyclesListScreen(
 @Composable
 @Preview
 fun PreviewMesocyclesScreen() {
-    MesocyclesListScreen()
+    //MesocyclesListScreen()
 }
