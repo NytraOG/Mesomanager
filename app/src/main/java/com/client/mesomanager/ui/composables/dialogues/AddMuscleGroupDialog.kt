@@ -36,7 +36,7 @@ fun AddMuscleGroupDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(200.dp)
                 .padding(16.dp),
             shape = RoundedCornerShape(16.dp)
         ) {

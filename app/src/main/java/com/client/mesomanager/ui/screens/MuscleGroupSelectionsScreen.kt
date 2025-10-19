@@ -33,8 +33,7 @@ fun MuscleGroupSelectionsScreen(
         meso = meso,
         muscleGroupsToShow = muscleGroupsToShow,
         onConfirmDialog = { it ->
-            val updatedList = (allMuscleGroups[day] ?: emptyList()) + it
-            allMuscleGroups[day] = updatedList
+            viewModel.insertMuscleGroupSelection(day, it)
         })
 }
 
@@ -63,9 +62,10 @@ fun MuscleGroupSelectionsScreen(
                 .align(Alignment.BottomEnd)
                 .padding(
                     end = 24.dp,
-                    bottom = 100.dp
+                    bottom = 150.dp
                 ),
-            onConfirmDialog = onConfirmDialog)
+            onConfirmDialog = onConfirmDialog
+        )
     }
 }
 

@@ -25,7 +25,7 @@ class SharedViewmodel : ViewModel() {
     fun insertMuscleGroupSelection(day: Int, muscleGroup: MuscleGroup){
         val existing = _muscleGroupSelectionOfDay.value[day] ?: emptyList()
         val newList = existing + muscleGroup
-        val newDict = _muscleGroupSelectionOfDay.value
+        val newDict = _muscleGroupSelectionOfDay.value.toMutableMap()
         newDict[day] = newList
 
         _muscleGroupSelectionOfDay.value = newDict
