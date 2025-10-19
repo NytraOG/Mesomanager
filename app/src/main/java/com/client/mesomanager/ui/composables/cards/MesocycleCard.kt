@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -96,9 +97,13 @@ fun MesocycleCard(
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                    .padding(
+                        vertical = 4.dp,
+                        horizontal = 8.dp
+                    ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
                 shape = RoundedCornerShape(32.dp),
+                onClick = cardOnClick,
                 colors = CardDefaults.cardColors(
                     //containerColor = Color.Green,
                     //contentColor = Color.White,
@@ -106,25 +111,21 @@ fun MesocycleCard(
             ) {
                 ListItem(
                     headlineContent = {
-                        Column {
-                            Text(meso.name, style = TextStyle(fontSize = 24.sp))
-                            Text("${meso.weeks} Weeks - ${meso.days} Days/Week")
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Column {
+                                Text(meso.name, style = TextStyle(fontSize = 24.sp))
+                                Text("${meso.weeks} Weeks - ${meso.days} Days/Week")
+                            }
                         }
                     },
                     colors = ListItemDefaults.colors(
                         containerColor = BlueGrey80
-                    ),
-                    leadingContent = {
-                        IconButton(
-                            onClick = cardOnClick
-                        ) { }
-                    },
-                    trailingContent = {
-                        IconButton(
-                            modifier = Modifier.width(100.dp),
-                            onClick = cardOnClick
-                        ) { }
-                    }
+                    )
                 )
             }
         }
