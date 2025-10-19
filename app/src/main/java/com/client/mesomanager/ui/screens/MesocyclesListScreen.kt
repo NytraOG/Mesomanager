@@ -54,7 +54,7 @@ fun MesocyclesListScreen(
                         }
                     },
                     cardOnClick = {
-                        sharedViewmodel.currentMeso = meso
+                        sharedViewmodel.setMeso(meso)
                         navController.navigate(NavigationDestination.MESOCYCLE.route)
                     },
                     dismissState = dismissState
@@ -71,7 +71,7 @@ fun MesocyclesListScreen(
                 ),
             onConfirmDialog = { dto ->
                 viewModel.createMesocycle(dto)
-                sharedViewmodel.currentMeso = viewModel.mesocycle.value
+                sharedViewmodel.setMeso(viewModel.mesocycle.value)
                 navController.navigate(NavigationDestination.MESOCYCLE.route)
             }
         )

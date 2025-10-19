@@ -33,6 +33,7 @@ fun ExerciseCard(
     onDelete: () -> Unit,
     dismissState: SwipeToDismissBoxState
 ) {
+    val kek =  mutableMapOf<Int, List<MuscleGroup>>()
     SwipeToDismissBox(
         state = dismissState,
         backgroundContent = {},

@@ -5,7 +5,29 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.data.enums.MuscleGroup
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class SharedViewmodel : ViewModel() {
-    var currentMeso by mutableStateOf<Mesocycle?>(null)
+
+    private val _currentMeso = MutableStateFlow<Mesocycle?>(null)
+    val currentMeso = _currentMeso.asStateFlow()
+
+    private val _muscleGroupSelectionOfDay = MutableStateFlow<MutableMap<Int, List<MuscleGroup>>>(mutableMapOf())
+    val muscleGroupSelectionOfDay = _muscleGroupSelectionOfDay.asStateFlow()
+
+
+    fun setMeso(meso: Mesocycle?) {
+        _currentMeso.value = meso
+    }
+
+    fun insertMuscleGroupSelection(day: Int, muscleGroup: MuscleGroup){
+        val existing = _muscleGroupSelectionOfDay.value[day] ?: emptyList()
+        val newList = existing + muscleGroup
+        val newDict = _muscleGroupSelectionOfDay.value
+        newDict[day] = newList
+
+        _muscleGroupSelectionOfDay.value = newDict
+    }
 }

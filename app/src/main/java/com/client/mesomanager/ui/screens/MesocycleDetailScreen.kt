@@ -16,6 +16,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -37,8 +38,9 @@ fun MesocycleDetailScreen(
     modifier: Modifier = Modifier,
     sharedViewmodel: SharedViewmodel
 ) {
+    val currentMeso by sharedViewmodel.currentMeso.collectAsState()
     var selectedDay by remember { mutableIntStateOf(1) }
-    val days = (1..(sharedViewmodel.currentMeso?.days ?: 0)).toList()
+    val days = (1..(currentMeso?.days ?: 0)).toList()
 
     val showDay1 = selectedDay == 1
     val showDay2 = selectedDay == 2
@@ -54,7 +56,7 @@ fun MesocycleDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "${sharedViewmodel.currentMeso?.name}",
+            text = "${currentMeso?.name}",
             modifier = Modifier.padding(8.dp),
             style = TextStyle(
                 fontSize = 36.sp,
@@ -81,7 +83,10 @@ fun MesocycleDetailScreen(
 
         if (showDay1) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Box 1", style = TextStyle(fontSize = 48.sp, color = MaterialTheme.colorScheme.onSurface))
+                MuscleGroupSelectionsScreen(
+                    viewModel = sharedViewmodel,
+                    day = 1
+                )
             }
         }
         if (showDay2) {
@@ -124,7 +129,7 @@ fun PreviewMesocycleDetailScreen() {
         intent = TrainingIntent.Strength
     )
     val viewmodel = SharedViewmodel()
-    viewmodel.currentMeso = meso
+    viewmodel.setMeso(meso)
 
     MesomanagerTheme(darkTheme = true) {
         MesocycleDetailScreen(sharedViewmodel = viewmodel)
