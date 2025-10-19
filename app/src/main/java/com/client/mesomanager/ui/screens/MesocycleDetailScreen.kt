@@ -39,15 +39,13 @@ fun MesocycleDetailScreen(
 ) {
     var selectedDay by remember { mutableIntStateOf(1) }
     val days = (1..(sharedViewmodel.currentMeso?.days ?: 0)).toList()
-    val actionMap = mutableMapOf<Int, () -> Unit>()
 
-    fun changeDayContentVisibility(dayToShow: Int) {
-
-    }
-
-    days.forEach { day ->
-        actionMap[day] = { changeDayContentVisibility(day) }
-    }
+    var showDay1 = selectedDay == 1
+    var showDay2 = selectedDay == 2
+    var showDay3 = selectedDay == 3
+    var showDay4 = selectedDay == 4
+    var showDay5 = selectedDay == 5
+    var showDay6 = selectedDay == 6
 
     Column(
         modifier = Modifier
@@ -73,13 +71,14 @@ fun MesocycleDetailScreen(
                     ),
                     onClick = {
                         selectedDay = day
-                        actionMap[selectedDay]?.invoke()
+                        //actionMap[selectedDay]?.invoke()
                     },
                     selected = day == selectedDay,
                     label = { Text("Day $day") }
                 )
             }
         }
+
 
     }
 }
