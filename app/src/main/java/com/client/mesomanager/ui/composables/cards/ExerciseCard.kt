@@ -33,7 +33,6 @@ fun ExerciseCard(
     onDelete: () -> Unit,
     dismissState: SwipeToDismissBoxState
 ) {
-    val kek =  mutableMapOf<Int, List<MuscleGroup>>()
     SwipeToDismissBox(
         state = dismissState,
         backgroundContent = {},
@@ -41,7 +40,10 @@ fun ExerciseCard(
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                    .padding(
+                        vertical = 4.dp,
+                        horizontal = 8.dp
+                    ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
                 shape = RoundedCornerShape(32.dp)
             ) {
