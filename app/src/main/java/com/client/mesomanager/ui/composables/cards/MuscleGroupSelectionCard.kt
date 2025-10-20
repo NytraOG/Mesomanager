@@ -39,6 +39,10 @@ import com.client.mesomanager.R
 import com.client.mesomanager.data.enums.MuscleGroup
 import com.client.mesomanager.ui.theme.BlueGrey80
 import com.client.mesomanager.ui.theme.MesomanagerTheme
+import com.client.mesomanager.ui.theme.MuscleGroupAccs
+import com.client.mesomanager.ui.theme.MuscleGroupLegs
+import com.client.mesomanager.ui.theme.MuscleGroupPull
+import com.client.mesomanager.ui.theme.MuscleGroupPush
 
 @Composable
 fun MuscleGroupSelectionCard(
@@ -46,6 +50,26 @@ fun MuscleGroupSelectionCard(
     onChooseExerciseClick: () -> Unit,
     onDeleteMuscleGroup: () -> Unit
 ) {
+    fun getColor(muscleGroup: MuscleGroup): Color{
+         return when (muscleGroup){
+             MuscleGroup.Chest -> MuscleGroupPush
+             MuscleGroup.Triceps -> MuscleGroupPush
+             MuscleGroup.Shoulders -> MuscleGroupPush
+
+             MuscleGroup.Back -> MuscleGroupPull
+             MuscleGroup.Biceps -> MuscleGroupPull
+
+             MuscleGroup.Quads -> MuscleGroupLegs
+             MuscleGroup.Hamstrings -> MuscleGroupLegs
+             MuscleGroup.Glutes -> MuscleGroupLegs
+
+             MuscleGroup.Forearms -> MuscleGroupAccs
+             MuscleGroup.Traps -> MuscleGroupAccs
+             MuscleGroup.Calves -> MuscleGroupAccs
+             MuscleGroup.Abs -> MuscleGroupAccs
+         }
+    }
+
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,6 +95,7 @@ fun MuscleGroupSelectionCard(
                         Icon(
                             modifier = Modifier,
                             imageVector = ImageVector.vectorResource(R.drawable.navigation_more),
+                            tint = getColor(muscleGroup),
                             contentDescription = "MUSCLEGROUP"
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -84,9 +109,9 @@ fun MuscleGroupSelectionCard(
                         onClick = onChooseExerciseClick,
                         modifier = Modifier
                             .background(
-                            color = MaterialTheme.colorScheme.onSecondary,
-                            shape = RoundedCornerShape(8.dp)
-                        )
+                                color = MaterialTheme.colorScheme.onSecondary,
+                                shape = RoundedCornerShape(8.dp)
+                            )
                     ) {
                         Text("Choose an Exercise")
                     }
