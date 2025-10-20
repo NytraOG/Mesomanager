@@ -92,7 +92,7 @@ fun MuscleGroupSelectionCard(
                     }
                 }
             },
-            leadingContent = { Text("  ") },
+            leadingContent = { Text("") },
             trailingContent = {
                 IconButton(
                     onClick = onDeleteMuscleGroup
