@@ -74,7 +74,7 @@ fun MuscleGroupSelectionCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                vertical = 4.dp, horizontal = 8.dp
+                vertical = 4.dp
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = RoundedCornerShape(32.dp)
@@ -101,7 +101,7 @@ fun MuscleGroupSelectionCard(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = muscleGroup.name,
-                            style = TextStyle(fontSize = 24.sp)
+                            style = TextStyle(fontSize = 18.sp)
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
