@@ -3,6 +3,7 @@ package com.client.mesomanager.ui.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,17 +32,13 @@ fun MuscleGroupSelectionsScreen(
 
     MuscleGroupSelectionsScreen(
         meso = meso,
-        muscleGroupsToShow = muscleGroupsToShow,
-        onConfirmDialog = { it ->
-            viewModel.insertMuscleGroupSelection(day, it)
-        })
+        muscleGroupsToShow = muscleGroupsToShow)
 }
 
 @Composable
 fun MuscleGroupSelectionsScreen(
     meso: Mesocycle?,
-    muscleGroupsToShow: List<MuscleGroup>,
-    onConfirmDialog: (muscleGroup: MuscleGroup) -> Unit
+    muscleGroupsToShow: List<MuscleGroup>
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -57,7 +54,8 @@ fun MuscleGroupSelectionsScreen(
             }
         }
 
-        AddMuscleGroupButton(
+
+       /* AddMuscleGroupButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(
@@ -65,7 +63,7 @@ fun MuscleGroupSelectionsScreen(
                     bottom = 150.dp
                 ),
             onConfirmDialog = onConfirmDialog
-        )
+        )*/
     }
 }
 
@@ -76,6 +74,6 @@ fun PreviewMuscleGroupSelectionsScreen() {
     val muscleGroups = listOf(MuscleGroup.Biceps, MuscleGroup.Chest, MuscleGroup.Shoulders)
 
     MesomanagerTheme(darkTheme = true) {
-        MuscleGroupSelectionsScreen(meso, muscleGroups, onConfirmDialog = {})
+        MuscleGroupSelectionsScreen(meso, muscleGroups)
     }
 }

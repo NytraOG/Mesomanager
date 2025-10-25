@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -31,6 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.data.viewmodels.SharedViewmodel
+import com.client.mesomanager.ui.composables.buttons.FinalizeNewMesoButton
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 
 @Composable
@@ -45,8 +48,10 @@ fun MesocycleDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(28.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(28.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
     ) {
         Text(
             text = "${currentMeso?.name}",
@@ -80,6 +85,12 @@ fun MesocycleDetailScreen(
                 day = selectedDay
             )
         }
+        Spacer(modifier = Modifier.height(12.dp))
+        FinalizeNewMesoButton(
+            onAddMuscleGroup = { muscleGroup ->
+                sharedViewmodel.insertMuscleGroupSelection(selectedDay, muscleGroup)
+            }
+        )
     }
 }
 

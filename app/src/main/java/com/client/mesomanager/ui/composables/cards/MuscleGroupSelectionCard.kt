@@ -84,7 +84,8 @@ fun MuscleGroupSelectionCard(
                 vertical = 4.dp,
                 horizontal = 4.dp
             )
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .height(85.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = RoundedCornerShape(8.dp)
     ) {
