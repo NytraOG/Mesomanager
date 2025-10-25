@@ -3,22 +3,17 @@ package com.client.mesomanager.ui.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.data.enums.MuscleGroup
 import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.data.viewmodels.SharedViewmodel
-import com.client.mesomanager.ui.composables.buttons.AddMuscleGroupButton
 import com.client.mesomanager.ui.composables.cards.MuscleGroupSelectionCard
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 
@@ -34,39 +29,38 @@ fun MuscleGroupSelectionsScreen(
 
     MuscleGroupSelectionsScreen(
         meso = meso,
-        muscleGroupsToShow = muscleGroupsToShow)
+        muscleGroupsToShow = muscleGroupsToShow,
+        onChooseExerciseClick = {},
+        onDeleteMuscleGroup = { muscleGroup ->
+            //viewModel.removeMuslceGroupSelection()
+        })
 }
 
 @Composable
 fun MuscleGroupSelectionsScreen(
     meso: Mesocycle?,
-    muscleGroupsToShow: List<MuscleGroup>
+    muscleGroupsToShow: List<MuscleGroup>,
+    onDeleteMuscleGroup: (toDelete: MuscleGroup) -> Unit,
+    onChooseExerciseClick: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
             muscleGroupsToShow.forEachIndexed { index, group ->
                 MuscleGroupSelectionCard(
                     muscleGroup = group,
-                    onChooseExerciseClick = {},
-                    onDeleteMuscleGroup = {})
+                    onChooseExerciseClick = onChooseExerciseClick,
+                    onDeleteMuscleGroup = {
+                        onDeleteMuscleGroup(group)
+                    }
+                )
             }
         }
-
-
-       /* AddMuscleGroupButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(
-                    end = 24.dp,
-                    bottom = 150.dp
-                ),
-            onConfirmDialog = onConfirmDialog
-        )*/
     }
 }
 
@@ -77,6 +71,6 @@ fun PreviewMuscleGroupSelectionsScreen() {
     val muscleGroups = listOf(MuscleGroup.Biceps, MuscleGroup.Chest, MuscleGroup.Shoulders)
 
     MesomanagerTheme(darkTheme = true) {
-        MuscleGroupSelectionsScreen(meso, muscleGroups)
+        MuscleGroupSelectionsScreen(meso, muscleGroups, {}, {})
     }
 }

@@ -79,12 +79,17 @@ fun MesocycleDetailScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
 
-        Box(modifier = Modifier.fillMaxSize()
-            .height(470.dp)) {
-            Column(modifier = Modifier.fillMaxSize()) { MuscleGroupSelectionsScreen(
-                viewModel = sharedViewmodel,
-                day = selectedDay
-            ) }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .height(470.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                MuscleGroupSelectionsScreen(
+                    viewModel = sharedViewmodel,
+                    day = selectedDay
+                )
+            }
 
         }
         Spacer(modifier = Modifier.height(12.dp))
@@ -96,7 +101,7 @@ fun MesocycleDetailScreen(
                     sharedViewmodel.insertMuscleGroupSelection(selectedDay, muscleGroup)
                 },
                 onFinalizeMeso = {
-
+                    sharedViewmodel.finalizeMesocycle()
                 }
             )
         }

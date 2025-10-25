@@ -30,4 +30,22 @@ class SharedViewmodel : ViewModel() {
 
         _muscleGroupSelectionOfDay.value = newDict
     }
+
+    fun removeMuslceGroupSelection(day: Int, muscleGroup: MuscleGroup){
+        val muscleGroupsOfDay = _muscleGroupSelectionOfDay.value[day] ?: emptyList()
+        val newList = muscleGroupsOfDay - muscleGroup
+        val newDict = _muscleGroupSelectionOfDay.value.toMutableMap()
+        newDict[day] = newList
+
+        _muscleGroupSelectionOfDay.value = newDict
+    }
+
+    fun finalizeMesocycle(){
+
+        resetViewModel()
+    }
+
+    fun resetViewModel(){
+
+    }
 }
