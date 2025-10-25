@@ -48,7 +48,8 @@ import com.client.mesomanager.ui.theme.Red80
 @Composable
 fun FinalizeNewMesoButton(
     modifier: Modifier = Modifier,
-    onAddMuscleGroup: (muscleGroup: MuscleGroup) -> Unit
+    onAddMuscleGroup: (muscleGroup: MuscleGroup) -> Unit,
+    onFinalizeMeso: () -> Unit
 ) {
     var checked by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
@@ -78,7 +79,9 @@ fun FinalizeNewMesoButton(
                     disabledContainerColor = Red80.copy(alpha = 0.38f),
                     disabledContentColor = Color.White
                 ),
-                onClick = { /* Do Nothing */ }) {
+                onClick = {
+                    onFinalizeMeso()
+                }) {
                 Icon(
                     Icons.Filled.StarRate,
                     modifier = Modifier.size(SplitButtonDefaults.LeadingIconSize),
@@ -165,7 +168,8 @@ fun FinalizeNewMesoButton(
 fun PreviewFinalizeNewMesoButton() {
     MesomanagerTheme(darkTheme = true) {
         FinalizeNewMesoButton(
-            onAddMuscleGroup = {}
+            onAddMuscleGroup = {},
+            onFinalizeMeso = {}
         )
     }
 }

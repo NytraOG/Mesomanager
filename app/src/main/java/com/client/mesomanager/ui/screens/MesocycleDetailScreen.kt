@@ -5,6 +5,7 @@ import android.text.Layout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +30,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.data.viewmodels.SharedViewmodel
@@ -48,7 +48,7 @@ fun MesocycleDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(28.dp)
+            .padding(12.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -79,18 +79,27 @@ fun MesocycleDetailScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            MuscleGroupSelectionsScreen(
+        Box(modifier = Modifier.fillMaxSize()
+            .height(470.dp)) {
+            Column(modifier = Modifier.fillMaxSize()) { MuscleGroupSelectionsScreen(
                 viewModel = sharedViewmodel,
                 day = selectedDay
-            )
+            ) }
+
         }
         Spacer(modifier = Modifier.height(12.dp))
-        FinalizeNewMesoButton(
-            onAddMuscleGroup = { muscleGroup ->
-                sharedViewmodel.insertMuscleGroupSelection(selectedDay, muscleGroup)
-            }
-        )
+        Row(
+            horizontalArrangement = Arrangement.End
+        ) {
+            FinalizeNewMesoButton(
+                onAddMuscleGroup = { muscleGroup ->
+                    sharedViewmodel.insertMuscleGroupSelection(selectedDay, muscleGroup)
+                },
+                onFinalizeMeso = {
+
+                }
+            )
+        }
     }
 }
 
