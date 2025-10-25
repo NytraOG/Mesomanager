@@ -2,16 +2,21 @@ package com.client.mesomanager.ui.composables.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -26,10 +31,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,40 +57,42 @@ fun MuscleGroupSelectionCard(
     onChooseExerciseClick: () -> Unit,
     onDeleteMuscleGroup: () -> Unit
 ) {
-    fun getColor(muscleGroup: MuscleGroup): Color{
-         return when (muscleGroup){
-             MuscleGroup.Chest -> MuscleGroupPush
-             MuscleGroup.Triceps -> MuscleGroupPush
-             MuscleGroup.Shoulders -> MuscleGroupPush
+    fun getColor(muscleGroup: MuscleGroup): Color {
+        return when (muscleGroup) {
+            MuscleGroup.Chest -> MuscleGroupPush
+            MuscleGroup.Triceps -> MuscleGroupPush
+            MuscleGroup.Shoulders -> MuscleGroupPush
 
-             MuscleGroup.Back -> MuscleGroupPull
-             MuscleGroup.Biceps -> MuscleGroupPull
+            MuscleGroup.Back -> MuscleGroupPull
+            MuscleGroup.Biceps -> MuscleGroupPull
 
-             MuscleGroup.Quads -> MuscleGroupLegs
-             MuscleGroup.Hamstrings -> MuscleGroupLegs
-             MuscleGroup.Glutes -> MuscleGroupLegs
+            MuscleGroup.Quads -> MuscleGroupLegs
+            MuscleGroup.Hamstrings -> MuscleGroupLegs
+            MuscleGroup.Glutes -> MuscleGroupLegs
 
-             MuscleGroup.Forearms -> MuscleGroupAccs
-             MuscleGroup.Traps -> MuscleGroupAccs
-             MuscleGroup.Calves -> MuscleGroupAccs
-             MuscleGroup.Abs -> MuscleGroupAccs
-         }
+            MuscleGroup.Forearms -> MuscleGroupAccs
+            MuscleGroup.Traps -> MuscleGroupAccs
+            MuscleGroup.Calves -> MuscleGroupAccs
+            MuscleGroup.Abs -> MuscleGroupAccs
+        }
     }
 
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                vertical = 4.dp
-            ),
+                vertical = 4.dp,
+                horizontal = 4.dp
+            )
+            .wrapContentHeight(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(32.dp)
+        shape = RoundedCornerShape(8.dp)
     ) {
         ListItem(
-
+            //modifier = Modifier.padding(vertical = 4.dp),
             headlineContent = {
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                   // modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -100,24 +109,38 @@ fun MuscleGroupSelectionCard(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
+                            modifier = Modifier.padding(start = 0.dp),
                             text = muscleGroup.name,
                             style = TextStyle(fontSize = 18.sp)
                         )
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    TextButton(
-                        onClick = onChooseExerciseClick,
-                        modifier = Modifier
-                            .background(
-                                color = MaterialTheme.colorScheme.onSecondary,
-                                shape = RoundedCornerShape(8.dp)
-                            )
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.CenterStart
                     ) {
-                        Text("Choose an Exercise")
+                        TextButton(
+                            onClick = onChooseExerciseClick,
+                            contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp),
+                            modifier = Modifier
+                                .defaultMinSize(minHeight = 2.dp)
+                                .wrapContentWidth(Alignment.Start)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                                    .background(
+                                        color = MaterialTheme.colorScheme.onSecondary,
+                                        shape = RoundedCornerShape(8.dp),
+                                    )
+                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text("Choose an Exercise")
+                            }
+                        }
                     }
+
                 }
             },
-            leadingContent = { Text("") },
             trailingContent = {
                 IconButton(
                     onClick = onDeleteMuscleGroup
