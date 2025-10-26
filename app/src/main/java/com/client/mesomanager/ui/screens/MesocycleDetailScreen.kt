@@ -87,6 +87,9 @@ fun MesocycleDetailScreen(
             Column(modifier = Modifier.fillMaxSize()) {
                 MuscleGroupSelectionsScreen(
                     viewModel = sharedViewmodel,
+                    onDeleteMuscleGroup = {
+                        sharedViewmodel.removeMuslceGroupSelection(selectedDay, it)
+                    },
                     day = selectedDay
                 )
             }

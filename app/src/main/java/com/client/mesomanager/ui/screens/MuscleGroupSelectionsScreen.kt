@@ -21,6 +21,7 @@ import com.client.mesomanager.ui.theme.MesomanagerTheme
 fun MuscleGroupSelectionsScreen(
     modifier: Modifier = Modifier,
     viewModel: SharedViewmodel,
+    onDeleteMuscleGroup: (toDelete: MuscleGroup) -> Unit,
     day: Int
 ) {
     val meso by viewModel.currentMeso.collectAsState()
@@ -32,7 +33,7 @@ fun MuscleGroupSelectionsScreen(
         muscleGroupsToShow = muscleGroupsToShow,
         onChooseExerciseClick = {},
         onDeleteMuscleGroup = { muscleGroup ->
-            //viewModel.removeMuslceGroupSelection()
+            onDeleteMuscleGroup(muscleGroup)
         })
 }
 
