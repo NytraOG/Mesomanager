@@ -21,7 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
+fun MassMeasurementUnitRadioButton(
+    modifier: Modifier = Modifier,
+    onSelected: (selectedOption: String) -> Unit
+) {
     val radioOptions = listOf("Kg", "Lb")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
@@ -38,17 +41,22 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
                     .height(56.dp)
                     .selectable(
                         selected = (text == selectedOption),
-                        onClick = { onOptionSelected(text) },
+                        onClick = {
+                            onOptionSelected(text)
+                            onSelected(text)
+                        },
                         role = Role.RadioButton
                     )
                     .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Row {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(
                         selected = (text == selectedOption),
-                        onClick = null //Laut Doku best Practice
+                        onClick = null
                     )
                     Text(
                         text = text,
@@ -64,5 +72,7 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewMassMeasurementUnitRadios() {
-    MassMeasurementUnitRadioButton()
+    MassMeasurementUnitRadioButton(
+        onSelected = {}
+    )
 }
