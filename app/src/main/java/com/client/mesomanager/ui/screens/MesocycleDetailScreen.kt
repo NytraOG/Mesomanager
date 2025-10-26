@@ -30,7 +30,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.data.enums.NavigationDestination
 import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.data.viewmodels.SharedViewmodel
 import com.client.mesomanager.ui.composables.buttons.FinalizeNewMesoButton
@@ -39,6 +42,7 @@ import com.client.mesomanager.ui.theme.MesomanagerTheme
 @Composable
 fun MesocycleDetailScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     sharedViewmodel: SharedViewmodel
 ) {
     val currentMeso by sharedViewmodel.currentMeso.collectAsState()
@@ -104,7 +108,9 @@ fun MesocycleDetailScreen(
                 },
                 onFinalizeMeso = {
                     sharedViewmodel.finalizeMesocycle()
-                }
+                    navController.navigate(NavigationDestination.WORKOUT.route)
+                },
+                sharedViewmodel = sharedViewmodel
             )
         }
     }
@@ -125,6 +131,6 @@ fun PreviewMesocycleDetailScreen() {
     viewmodel.setMeso(meso)
 
     MesomanagerTheme(darkTheme = true) {
-        MesocycleDetailScreen(sharedViewmodel = viewmodel)
+        MesocycleDetailScreen(sharedViewmodel = viewmodel, navController = rememberNavController())
     }
 }

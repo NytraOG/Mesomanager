@@ -1,5 +1,6 @@
 package com.client.mesomanager.ui.composables.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.client.mesomanager.data.enums.MuscleGroup
+import com.client.mesomanager.data.viewmodels.SharedViewmodel
 import com.client.mesomanager.ui.composables.dialogues.AddMuscleGroupDialog
 import com.client.mesomanager.ui.composables.sheets.FinalizeMesoSheet
 import com.client.mesomanager.ui.theme.MesomanagerTheme
@@ -43,7 +45,8 @@ import com.client.mesomanager.ui.theme.Red80
 fun FinalizeNewMesoButton(
     modifier: Modifier = Modifier,
     onAddMuscleGroup: (muscleGroup: MuscleGroup) -> Unit,
-    onFinalizeMeso: () -> Unit
+    onFinalizeMeso: () -> Unit,
+    sharedViewmodel: SharedViewmodel
 ) {
     var checked by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
@@ -143,7 +146,8 @@ fun FinalizeNewMesoButton(
         onConfirmFinalization = {
             onFinalizeMeso()
             showBottomSheet = false
-        }
+        },
+        sharedViewmodel = sharedViewmodel
     )
     /*  DropdownMenu(expanded = checked, onDismissRequest = { checked = false }) {
           DropdownMenuItem(
@@ -166,13 +170,15 @@ fun FinalizeNewMesoButton(
       }*/
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview
 fun PreviewFinalizeNewMesoButton() {
     MesomanagerTheme(darkTheme = true) {
         FinalizeNewMesoButton(
             onAddMuscleGroup = {},
-            onFinalizeMeso = {}
+            onFinalizeMeso = {},
+            sharedViewmodel = SharedViewmodel()
         )
     }
 }

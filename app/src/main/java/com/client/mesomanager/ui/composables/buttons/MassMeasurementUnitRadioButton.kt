@@ -19,13 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.client.mesomanager.data.enums.MassUnit
 
 @Composable
 fun MassMeasurementUnitRadioButton(
     modifier: Modifier = Modifier,
-    onSelected: (selectedOption: String) -> Unit
+    onSelected: (selectedOption: MassUnit) -> Unit
 ) {
-    val radioOptions = listOf("Kg", "Lb")
+    val radioOptions = listOf(MassUnit.Kg, MassUnit.Lb)
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
     Row(
@@ -35,15 +36,15 @@ fun MassMeasurementUnitRadioButton(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        radioOptions.forEach { text ->
+        radioOptions.forEach { massUnit ->
             Row(
                 Modifier
                     .height(56.dp)
                     .selectable(
-                        selected = (text == selectedOption),
+                        selected = (massUnit == selectedOption),
                         onClick = {
-                            onOptionSelected(text)
-                            onSelected(text)
+                            onOptionSelected(massUnit)
+                            onSelected(massUnit)
                         },
                         role = Role.RadioButton
                     )
@@ -55,11 +56,11 @@ fun MassMeasurementUnitRadioButton(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (text == selectedOption),
+                        selected = (massUnit == selectedOption),
                         onClick = null
                     )
                     Text(
-                        text = text,
+                        text = massUnit.toString(),
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(start = 16.dp)
                     )

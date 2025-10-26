@@ -27,7 +27,7 @@ fun AnimatedNavHost(
             route = NavigationDestination.MESOCYCLE.route,
 
         ) {
-            MesocycleDetailScreen(sharedViewmodel = sharedViewmodel)
+            MesocycleDetailScreen(sharedViewmodel = sharedViewmodel, navController = navController)
         }
     }
 }

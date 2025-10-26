@@ -1,5 +1,6 @@
 package com.client.mesomanager.ui.composables.sheets
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.client.mesomanager.data.viewmodels.SharedViewmodel
 import com.client.mesomanager.ui.composables.buttons.FinalFinalizeButton
 import com.client.mesomanager.ui.composables.buttons.MassMeasurementUnitRadioButton
 import com.client.mesomanager.ui.composables.buttons.TrainingIntentRadioButton
@@ -31,6 +33,7 @@ fun FinalizeMesoSheet(
     showBottomSheet: Boolean,
     onDismiss: () -> Unit,
     onConfirmFinalization: () -> Unit,
+    sharedViewmodel: SharedViewmodel,
     sheetState: SheetState = rememberModalBottomSheetState()
 ) {
     val scope = rememberCoroutineScope()
@@ -53,12 +56,14 @@ fun FinalizeMesoSheet(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 TrainingIntentRadioButton(
-                    onIntentSelected = {}
+                    onIntentSelected = {intent ->
+                        sharedViewmodel.setIntent(intent)
+                    }
                 )
                 HorizontalDivider(thickness = 2.dp)
                 MassMeasurementUnitRadioButton(
-                    onSelected = {selectedOption ->
-
+                    onSelected = {unit ->
+                        sharedViewmodel.setMassUnit(unit)
                     }
                 )
                 HorizontalDivider(thickness = 2.dp)
@@ -76,6 +81,7 @@ fun FinalizeMesoSheet(
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = false)
 @Composable
@@ -92,7 +98,8 @@ fun PreviewFinalizeMesoSheet() {
             onDismiss = {},
             onConfirmFinalization = {},
             showBottomSheet = true,
-            sheetState = sheetState
+            sheetState = sheetState,
+            sharedViewmodel = SharedViewmodel()
         )
     }
 }

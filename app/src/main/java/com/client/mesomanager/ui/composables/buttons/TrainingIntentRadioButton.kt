@@ -24,7 +24,7 @@ import com.client.mesomanager.ui.theme.MesomanagerTheme
 @Composable
 fun TrainingIntentRadioButton(
     modifier: Modifier = Modifier,
-    onIntentSelected: () -> Unit
+    onIntentSelected: (intent: TrainingIntent) -> Unit
 ) {
     val radioOptions = listOf(TrainingIntent.Strength, TrainingIntent.Hypertrophy)
     val (option, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
@@ -36,15 +36,15 @@ fun TrainingIntentRadioButton(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        radioOptions.forEach { text ->
+        radioOptions.forEach { intent ->
             Row(
                 Modifier
                     .height(56.dp)
                     .selectable(
-                        selected = (text == option),
+                        selected = (intent == option),
                         onClick = {
-                            onOptionSelected(text)
-                            onIntentSelected()
+                            onOptionSelected(intent)
+                            onIntentSelected(intent)
                         },
                         role = Role.RadioButton
                     )
@@ -54,11 +54,11 @@ fun TrainingIntentRadioButton(
             ) {
                 Row {
                     RadioButton(
-                        selected = (text == option),
+                        selected = (intent == option),
                         onClick = null
                     )
                     Text(
-                        text = text.toString(),
+                        text = intent.toString(),
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(start = 16.dp)
                     )

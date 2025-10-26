@@ -35,7 +35,10 @@ fun AppNavHost(
 
                     NavigationDestination.EXERCISES -> ExercisesScreen()
                     NavigationDestination.MORE -> MoreScreen()
-                    NavigationDestination.MESOCYCLE -> MesocycleDetailScreen(sharedViewmodel = sharedViewmodel)
+                    NavigationDestination.MESOCYCLE -> MesocycleDetailScreen(
+                        sharedViewmodel = sharedViewmodel,
+                        navController = navController
+                    )
                 }
             }
         }

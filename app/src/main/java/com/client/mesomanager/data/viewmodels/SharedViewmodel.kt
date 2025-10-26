@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.client.mesomanager.data.daos.MesocycleDao
 import com.client.mesomanager.data.entities.Mesocycle
+import com.client.mesomanager.data.enums.MassUnit
 import com.client.mesomanager.data.enums.MuscleGroup
+import com.client.mesomanager.data.enums.TrainingIntent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +23,21 @@ class SharedViewmodel : ViewModel() {
     private val _muscleGroupSelectionOfDay = MutableStateFlow<MutableMap<Int, List<MuscleGroup>>>(mutableMapOf())
     val muscleGroupSelectionOfDay = _muscleGroupSelectionOfDay.asStateFlow()
 
+    private val _selectedIntent = MutableStateFlow(TrainingIntent.Strength)
+    val selectedIntent = _selectedIntent.asStateFlow()
+
+    private val _selectedMassUnit = MutableStateFlow(MassUnit.Kg)
+    val selectedMassUnit = _selectedMassUnit.asStateFlow()
+
     var mesoDao:MesocycleDao? = null
+
+    fun setMassUnit(unit: MassUnit){
+        _selectedMassUnit.value = unit
+    }
+
+    fun setIntent(intent: TrainingIntent){
+        _selectedIntent.value = intent
+    }
 
     fun setMeso(meso: Mesocycle?) {
         _currentMeso.value = meso
@@ -61,6 +77,10 @@ class SharedViewmodel : ViewModel() {
     }
 
     fun resetViewModel(){
+        setIntent(TrainingIntent.Strength)
+        setMassUnit(MassUnit.Kg)
+        setMeso(null)
 
+        _muscleGroupSelectionOfDay.value = mutableMapOf()
     }
 }
