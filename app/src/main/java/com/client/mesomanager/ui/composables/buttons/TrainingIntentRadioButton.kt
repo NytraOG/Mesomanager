@@ -1,7 +1,6 @@
 package com.client.mesomanager.ui.composables.buttons
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,11 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.client.mesomanager.data.enums.TrainingIntent
+import com.client.mesomanager.ui.theme.MesomanagerTheme
 
 @Composable
-fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
-    val radioOptions = listOf("Kg", "Lb")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+fun TrainingIntentRadioButton(
+    modifier: Modifier = Modifier,
+    onIntentSelected: () -> Unit
+) {
+    val radioOptions = listOf(TrainingIntent.Strength, TrainingIntent.Hypertrophy)
+    val (option, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
     Row(
         modifier = modifier
@@ -37,8 +41,11 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
                 Modifier
                     .height(56.dp)
                     .selectable(
-                        selected = (text == selectedOption),
-                        onClick = { onOptionSelected(text) },
+                        selected = (text == option),
+                        onClick = {
+                            onOptionSelected(text)
+                            onIntentSelected()
+                        },
                         role = Role.RadioButton
                     )
                     .padding(horizontal = 16.dp),
@@ -47,11 +54,11 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
             ) {
                 Row {
                     RadioButton(
-                        selected = (text == selectedOption),
-                        onClick = null //Laut Doku best Practice
+                        selected = (text == option),
+                        onClick = null
                     )
                     Text(
-                        text = text,
+                        text = text.toString(),
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(start = 16.dp)
                     )
@@ -63,6 +70,10 @@ fun MassMeasurementUnitRadioButton(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMassMeasurementUnitRadios() {
-    MassMeasurementUnitRadioButton()
+fun PreviewTrainingIntentRadioButton() {
+    MesomanagerTheme(darkTheme = true) {
+        TrainingIntentRadioButton(
+            onIntentSelected = {}
+        )
+    }
 }

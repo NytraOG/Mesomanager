@@ -6,16 +6,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.StarRate
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.SplitButtonDefaults
@@ -36,7 +30,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.client.mesomanager.data.enums.MuscleGroup
@@ -147,8 +140,9 @@ fun FinalizeNewMesoButton(
     FinalizeMesoSheet(
         showBottomSheet = showBottomSheet,
         onDismiss = { showBottomSheet = false },
-        onConfirm = {
+        onConfirmFinalization = {
             onFinalizeMeso()
+            showBottomSheet = false
         }
     )
     /*  DropdownMenu(expanded = checked, onDismissRequest = { checked = false }) {
