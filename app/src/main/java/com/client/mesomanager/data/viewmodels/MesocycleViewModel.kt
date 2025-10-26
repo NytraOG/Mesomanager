@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 class MesocycleViewModel @Inject constructor(
     private val mesocycleDao: MesocycleDao
 ) : ViewModel() {
+    val mesoDao = mesocycleDao
+
     private val _mesocycle = MutableStateFlow<Mesocycle?>(null)
     val mesocycle = _mesocycle.asStateFlow()
 

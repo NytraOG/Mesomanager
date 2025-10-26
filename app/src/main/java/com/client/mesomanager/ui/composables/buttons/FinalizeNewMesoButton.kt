@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.client.mesomanager.data.enums.MuscleGroup
 import com.client.mesomanager.ui.composables.dialogues.AddMuscleGroupDialog
+import com.client.mesomanager.ui.composables.sheets.FinalizeMesoSheet
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 import com.client.mesomanager.ui.theme.Red80
 
@@ -53,6 +54,7 @@ fun FinalizeNewMesoButton(
 ) {
     var checked by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
+    var showBottomSheet by remember { mutableStateOf(false) }
 
     fun closeDialog() {
         showDialog = false
@@ -80,7 +82,7 @@ fun FinalizeNewMesoButton(
                     disabledContentColor = Color.White
                 ),
                 onClick = {
-                    onFinalizeMeso()
+                    showBottomSheet = true
                 }) {
                 Icon(
                     Icons.Filled.StarRate,
@@ -142,25 +144,32 @@ fun FinalizeNewMesoButton(
         modifier = Modifier
     )
 
-  /*  DropdownMenu(expanded = checked, onDismissRequest = { checked = false }) {
-        DropdownMenuItem(
-            text = { Text("Edit") },
-            onClick = { /* Handle edit! */ },
-            leadingIcon = { Icon(Icons.Outlined.Edit, contentDescription = null) },
-        )
-        DropdownMenuItem(
-            text = { Text("Settings") },
-            onClick = { /* Handle settings! */ },
-            leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
-        )
-        HorizontalDivider()
-        DropdownMenuItem(
-            text = { Text("Send Feedback") },
-            onClick = { /* Handle send feedback! */ },
-            leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
-            trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
-        )
-    }*/
+    FinalizeMesoSheet(
+        showBottomSheet = showBottomSheet,
+        onDismiss = { showBottomSheet = false },
+        onConfirm = {
+            onFinalizeMeso()
+        }
+    )
+    /*  DropdownMenu(expanded = checked, onDismissRequest = { checked = false }) {
+          DropdownMenuItem(
+              text = { Text("Edit") },
+              onClick = { /* Handle edit! */ },
+              leadingIcon = { Icon(Icons.Outlined.Edit, contentDescription = null) },
+          )
+          DropdownMenuItem(
+              text = { Text("Settings") },
+              onClick = { /* Handle settings! */ },
+              leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+          )
+          HorizontalDivider()
+          DropdownMenuItem(
+              text = { Text("Send Feedback") },
+              onClick = { /* Handle send feedback! */ },
+              leadingIcon = { Icon(Icons.Outlined.Email, contentDescription = null) },
+              trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
+          )
+      }*/
 }
 
 @Composable

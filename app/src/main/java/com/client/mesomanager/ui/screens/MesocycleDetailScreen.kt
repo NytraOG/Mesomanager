@@ -34,6 +34,7 @@ import com.client.mesomanager.data.entities.Mesocycle
 import com.client.mesomanager.data.enums.TrainingIntent
 import com.client.mesomanager.data.viewmodels.SharedViewmodel
 import com.client.mesomanager.ui.composables.buttons.FinalizeNewMesoButton
+import com.client.mesomanager.ui.composables.sheets.FinalizeMesoSheet
 import com.client.mesomanager.ui.theme.MesomanagerTheme
 
 @Composable
@@ -93,7 +94,6 @@ fun MesocycleDetailScreen(
                     day = selectedDay
                 )
             }
-
         }
         Spacer(modifier = Modifier.height(12.dp))
         Row(
@@ -104,6 +104,7 @@ fun MesocycleDetailScreen(
                     sharedViewmodel.insertMuscleGroupSelection(selectedDay, muscleGroup)
                 },
                 onFinalizeMeso = {
+                    //Bottomsheet öffnen
                     sharedViewmodel.finalizeMesocycle()
                 }
             )
